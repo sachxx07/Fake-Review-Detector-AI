@@ -331,6 +331,19 @@ button.loading .btn-loader {
   border: 1px solid var(--red-border);
 }
 
+.result-box.neutral {
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+.result-box.neutral .result-icon {
+  color: #fbbf24;
+}
+
+.result-box.neutral .result-label {
+  color: #fbbf24;
+}
+
 .result-icon {
   flex-shrink: 0;
 }

@@ -94,7 +94,6 @@
       const resultBox = document.getElementById("resultBox");
       const errorBox = document.getElementById("errorBox");
 
-      // Reset
       resultBox.classList.add("hidden");
       resultBox.classList.remove("show");
       errorBox.classList.add("hidden");
@@ -105,7 +104,6 @@
         return;
       }
 
-      // Loading state
       btn.classList.add("loading");
       btn.disabled = true;
 
@@ -121,6 +119,18 @@
         if (data.error) {
           errorBox.textContent = data.error;
           errorBox.classList.remove("hidden");
+        } else if (data.result === "Neutral") {
+          resultBox.className = "result-box neutral";
+
+          document.getElementById("resultIcon").innerHTML =
+            `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+
+          document.getElementById("resultLabel").textContent = "ℹ Insufficient Input";
+          document.getElementById("resultConfidence").textContent = data.message;
+
+          requestAnimationFrame(() => {
+            resultBox.classList.add("show");
+          });
         } else {
           const isFake = data.result === "Fake";
           resultBox.className = `result-box ${isFake ? "fake" : "real"}`;
@@ -136,7 +146,6 @@
           document.getElementById("resultConfidence").textContent =
             `Confidence: ${data.confidence}%`;
 
-          // Trigger animation
           requestAnimationFrame(() => {
             resultBox.classList.add("show");
           });
@@ -150,7 +159,6 @@
       }
     }
 
-    // Allow Ctrl+Enter to submit
     textarea.addEventListener("keydown", (e) => {
       if (e.ctrlKey && e.key === "Enter") analyzeReview();
     });
